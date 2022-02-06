@@ -11,12 +11,14 @@
                   <p class="mb-0">Masukkan Email Dan Password untuk Masuk</p>
                 </div>
                 <div class="card-body">
-                  <form method="post"  action="<?= base_url('auth'); ?>">
+                  <form method="post" action="<?= base_url('auth'); ?>">
                     <div class="mb-3">
                       <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" name="email">
+                      <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="mb-3">
                       <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">
+                      <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Masuk</button>

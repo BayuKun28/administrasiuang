@@ -6,26 +6,8 @@
                     © <script>
                         document.write(new Date().getFullYear())
                     </script>,
-                    made with <i class="fa fa-heart"></i> by
-                    <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                    for a better web.
+                    AdminKun_
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -109,6 +91,16 @@
 <script src="<?= base_url('assets'); ?>/js/core/bootstrap.min.js"></script>
 <script src="<?= base_url('assets'); ?>/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="<?= base_url('assets'); ?>/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="<?= base_url('assets/') ?>jquery/jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets/') ?>jquery/jquery-easing/jquery.easing.min.js"></script>
+<!-- <script src="<?= base_url('assets/') ?>jquery/jquery/jquery.inputmask.bundle.min.js"></script> -->
+<script src="<?= base_url('assets/') ?>jquery-mask/jquery.mask.js"></script>
+<script src="<?= base_url('assets/') ?>select2/select2.min.js"></script>
+
+<script src="<?= base_url('assets/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
+
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -122,6 +114,71 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="<?= base_url('assets'); ?>/js/argon-dashboard.min.js?v=2.0.0"></script>
+
+
+<script type="text/javascript">
+    $('#jumlah').mask('#,##0.00', {
+        reverse: true
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $('.jenis').select2({
+        ajax: {
+            url: "<?= base_url(); ?>/transaksi/getjenis",
+            dataType: "json",
+            delay: 250,
+            data: function(params) {
+                return {
+                    jen: params.term
+                };
+            },
+            processResults: function(data) {
+                var results = [];
+                $.each(data, function(index, item) {
+                    results.push({
+                        id: item.id,
+                        text: item.nama_jenis
+                    });
+                });
+                return {
+                    results: results
+                }
+            }
+        }
+    });
+</script>
+
+
+<script type="text/javascript">
+    $('.kategori').select2({
+        ajax: {
+            url: "<?= base_url(); ?>/transaksi/getkategori",
+            dataType: "json",
+            delay: 250,
+            data: function(params) {
+                return {
+                    kat: params.term
+                };
+            },
+            processResults: function(data) {
+                var results = [];
+                $.each(data, function(index, item) {
+                    results.push({
+                        id: item.id,
+                        text: item.nama_kategori
+                    });
+                });
+                return {
+                    results: results
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
