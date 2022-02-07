@@ -19,12 +19,12 @@ class Pemasukan_model extends CI_Model
         $this->db->like('nama_kategori', $kat);
         return $this->db->get()->result_array();
     }
-    public function getpemasukan()
+    public function getpemasukan($xtanggalawal, $xtanggalakhir)
     {
         $query = "SELECT t.id,t.catatan,t.tanggal,k.nama_kategori,t.jumlah FROM transaksi t 
         JOIN kategori k on k.id = t.kategori
         JOIN jenis j on j.id = t.jenis
-        WHERE t.jenis = 1
+        WHERE t.jenis = 1 AND t.tanggal BETWEEN '$xtanggalawal' AND '$xtanggalakhir'
         ORDER BY t.tanggal DESC
         ";
         return $this->db->query($query)->result_array();

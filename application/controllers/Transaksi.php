@@ -9,9 +9,22 @@ class Transaksi extends CI_Controller
         $data['title2'] = 'Pemasukan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('Pemasukan_model', 'pemasukan');
-        $data['pemasukan'] = $this->pemasukan->getPemasukan();
-        // $id = $this->input->post('');
-        // $data['pemasukandetail'] = $this->pemasukan->getpemasukandetail($id);
+
+        $xtanggalawal = $this->input->post('tanggalawal');
+        $xtanggalakhir = $this->input->post('tanggalakhir');
+
+        if (!empty($xtanggalawal) && !empty($xtanggalakhir)) {
+            $xtanggalawal = $this->input->post('tanggalawal');
+            $xtanggalakhir = $this->input->post('tanggalakhir');
+        } else {
+            $xtanggalawal = date('Y/m/d');
+            $xtanggalakhir = date('Y/m/d');
+        }
+
+        $data['pemasukan'] = $this->pemasukan->getPemasukan($xtanggalawal, $xtanggalakhir);
+        $data['tanggalawal'] = $xtanggalawal;
+        $data['tanggalakhir'] = $xtanggalakhir;
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -38,9 +51,6 @@ class Transaksi extends CI_Controller
         $data['title2'] = 'Tambah Pemasukan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $user1 = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $this->load->model('Pemasukan_model', 'pemasukan');
-        $data['pemasukan'] = $this->pemasukan->getpemasukan();
-
         $this->form_validation->set_rules('jenis', 'Jenis Transaksi', 'trim|required');
         $this->form_validation->set_rules('kategori', 'Kategori Transaksi', 'trim|required');
         $this->form_validation->set_rules('jumlah', 'Nominal', 'trim|required');

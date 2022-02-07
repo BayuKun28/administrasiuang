@@ -21,4 +21,5 @@
   <link id="pagestyle" href="<?= base_url('assets'); ?>/css/argon-dashboard.css?v=2.0.0" rel="stylesheet" />
   <link id="pagestyle" href="<?= base_url('assets'); ?>/select2/select2.min.css" rel="stylesheet" />
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="<?= base_url('assets/') ?>datepicker/jquery.datetimepicker.css" rel="stylesheet">
 </head>

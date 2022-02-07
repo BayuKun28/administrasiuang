@@ -3,9 +3,19 @@
         <div class="card mb-4">
             <div class="card-header pb-0">
                 <h6>Data Pemasukan Hari Ini</h6>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a class="btn btn-primary btn-col-1" role="button" aria-disabled="true">Tampilkan</a>
-                    <a href="<?= base_url('transaksi/addpemasukan'); ?>" class="btn btn-success btn-col-1" role="button" aria-disabled="true">Tambah</a>
+                <div class="row col">
+                    <form method="post" action="<?= base_url('transaksi/pemasukan') ?>" class="row g-3">
+                        <div class="form-group col-md-4">
+                            <input type="text" id="tanggalawal" name="tanggalawal" class="form-control" value="<?= $tanggalawal ?>">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" id="tanggalakhir" name="tanggalakhir" class="form-control" value="<?= $tanggalakhir ?>">
+                        </div>
+                        <div class="form-group col-md-4 float-right">
+                            <button type="submit" class="btn btn-primary btn-col-1 " role="button" aria-disabled="true">Tampilkan</button>
+                            <a href="<?= base_url('transaksi/addpemasukan'); ?>" class="btn btn-success btn-col-1 " role="button" aria-disabled="true">Tambah</a>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -31,7 +41,7 @@
                                     <td><?= $b['nama_kategori']; ?></td>
                                     <td><?= $b['jumlah']; ?></td>
                                     <td>
-                                        <a href="<?= base_url('pemasukan/detail/') . $b['id']; ?>" class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#modaldetailpemasukan">Detail</a>
+                                        <a class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#modaldetailpemasukan" id="detailpemasukan" name="detailpemasukan" data-catatan="<?= $b['catatan']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-namakategori="<?= $b['nama_kategori']; ?>" data-jumlah="<?= $b['jumlah']; ?>">Detail</a>
                                         <a href="<?= base_url('pemasukan/edit/') . $b['id']; ?>" class="badge bg-success">edit</a>
                                         <a data-kode="<?= $b['id']; ?>" href='javascript:void(0)' class="del_pemasukan badge bg-danger ">delete</a>
                                     </td>
@@ -60,7 +70,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>

@@ -101,6 +101,40 @@
 <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
 
+<script src="<?= base_url('assets/'); ?>datepicker/jquery.datetimepicker.full.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#tanggalawal').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false
+        });
+    });
+    $(document).ready(function() {
+        $('#tanggalakhir').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '#detailpemasukan', function() {
+            var catatan = $(this).data('catatan');
+            var tanggal = $(this).data('tanggal');
+            var kategori = $(this).data('namakategori');
+            var jumlah = $(this).data('jumlah');
+            $('#catatandetail').val(catatan);
+            $('#tanggaldetail').val(tanggal);
+            $('#kategoridetail').val(kategori);
+            $('#jumlahdetail').val(jumlah);
+        })
+    })
+</script>
+
+
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -116,11 +150,11 @@
 <script src="<?= base_url('assets'); ?>/js/argon-dashboard.min.js?v=2.0.0"></script>
 
 
-<script type="text/javascript">
-    $('#jumlah').mask('#,##0.00', {
+<!-- <script type="text/javascript">
+    $('#jumlah').mask('#.##0,00', {
         reverse: true
     });
-</script>
+</script> -->
 
 
 
