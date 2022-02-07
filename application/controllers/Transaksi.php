@@ -77,6 +77,20 @@ class Transaksi extends CI_Controller
             redirect('transaksi/addpemasukan');
         }
     }
+
+    public function editpemasukan()
+    {
+        $id = $this->input->post('idedit');
+        $data = array(
+            'jumlah' => $this->input->post('jumlahedit'),
+            'tanggal' => $this->input->post('tanggaledit'),
+            'kategori' => $this->input->post('kategoriedit'),
+            'catatan' => $this->input->post('catatanedit')
+        );
+        $this->load->model('Pemasukan_model', 'pemasukan');
+        $this->pemasukan->ubah($data, $id);
+        redirect('Transaksi/pemasukan');
+    }
     public function getjenis()
     {
         $jen = $this->input->get('jen');

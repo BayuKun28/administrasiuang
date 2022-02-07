@@ -21,7 +21,7 @@ class Pemasukan_model extends CI_Model
     }
     public function getpemasukan($xtanggalawal, $xtanggalakhir)
     {
-        $query = "SELECT t.id,t.catatan,t.tanggal,k.nama_kategori,t.jumlah FROM transaksi t 
+        $query = "SELECT t.id,t.catatan,t.tanggal,k.nama_kategori,t.kategori as idkategori,t.jumlah FROM transaksi t 
         JOIN kategori k on k.id = t.kategori
         JOIN jenis j on j.id = t.jenis
         WHERE t.jenis = 1 AND t.tanggal BETWEEN '$xtanggalawal' AND '$xtanggalakhir'
@@ -38,5 +38,12 @@ class Pemasukan_model extends CI_Model
         ORDER BY t.tanggal DESC
         ";
         return $this->db->query($query)->result_array();
+    }
+
+    public function ubah($data, $id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('transaksi', $data);
+        return true;
     }
 }

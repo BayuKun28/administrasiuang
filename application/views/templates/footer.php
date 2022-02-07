@@ -132,6 +132,26 @@
             $('#jumlahdetail').val(jumlah);
         })
     })
+
+    $(document).ready(function() {
+        $(document).on('click', '#editpemasukan', function() {
+            var idedit = $(this).data('id');
+            var catatan = $(this).data('catatan');
+            var tanggal = $(this).data('tanggal');
+            var kategori = $(this).data('idkategori');
+            var jumlah = $(this).data('jumlah');
+            $('#idedit').val(idedit);
+            $('#catatanedit').val(catatan);
+            $('#tanggaledit').val(tanggal);
+            $('#kategoriedit').val(kategori);
+            $('#jumlahedit').val(jumlah);
+            // modal.find('#idedit').attr("value", div.data('id'));
+            // modal.find('#catatanedit').attr("value", div.data('catatan'));
+            // modal.find('#tanggaledit').attr("value", div.data('tanggal'));
+            // modal.find('#kategoriedit').attr("value", div.data('idkategori'));
+            // modal.find('#jumlahedit').attr("value", div.data('jumlah'));
+        })
+    })
 </script>
 
 
@@ -187,7 +207,7 @@
 
 
 <script type="text/javascript">
-    $('.kategori').select2({
+    $('.kategoriedit').select2({
         ajax: {
             url: "<?= base_url(); ?>/transaksi/getkategori",
             dataType: "json",

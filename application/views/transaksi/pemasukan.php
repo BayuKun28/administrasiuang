@@ -42,7 +42,9 @@
                                     <td><?= $b['jumlah']; ?></td>
                                     <td>
                                         <a class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#modaldetailpemasukan" id="detailpemasukan" name="detailpemasukan" data-catatan="<?= $b['catatan']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-namakategori="<?= $b['nama_kategori']; ?>" data-jumlah="<?= $b['jumlah']; ?>">Detail</a>
-                                        <a href="<?= base_url('pemasukan/edit/') . $b['id']; ?>" class="badge bg-success">edit</a>
+
+                                        <a class="badge bg-success" data-bs-toggle="modal" data-bs-target="#modaleditpemasukan" id="editpemasukan" name="editpemasukan" data-catatan="<?= $b['catatan']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-tanggal="<?= $b['tanggal']; ?>" data-namakategori="<?= $b['nama_kategori']; ?>" data-jumlah="<?= $b['jumlah']; ?>" data-idkategori="<?= $b['idkategori']; ?>" data-id="<?= $b['id']; ?>">Edit</a>
+
                                         <a data-kode="<?= $b['id']; ?>" href='javascript:void(0)' class="del_pemasukan badge bg-danger ">delete</a>
                                     </td>
                                 </tr>
@@ -74,6 +76,39 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="modaleditpemasukan" tabindex="-1" aria-labelledby="modaleditpemasukanLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modaleditpemasukanLabel">Edit Pemasukan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="<?= base_url('transaksi/editpemasukan') ?>" method="post">
+                                    <div class="modal-body">
+                                        <b><label for="catatanedit">Catatan</label></b>
+                                        <input type="hidden" id="idedit" name="idedit">
+                                        <input type="text" class="form-control" id="catatanedit" name="catatanedit" value="">
+                                        <b><label for="tanggaledit">Tanggal Input</label></b>
+                                        <input type="text" class="form-control" id="tanggaledit" name="tanggaledit" value="">
+                                        <b><label for="kategoriedit">Kategori</label></b>
+                                        <!-- <div class="col-md-12">
+                                        <select class="form-control kategoriedit col-md-6" id="kategoriedit" name="kategoriedit">
+                                        </select>
+                                    </div> -->
+                                        <input type="text" class="form-control" id="kategoriedit" name="kategoriedit" value="">
+                                        <b><label for="jumlahedit">Jumlah</label></b>
+                                        <input type="text" class="form-control" id="jumlahedit" name="jumlahedit" value="">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
