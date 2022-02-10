@@ -103,6 +103,8 @@
 
 <script src="<?= base_url('assets/'); ?>datepicker/jquery.datetimepicker.full.js"></script>
 
+<script src="<?= base_url('assets/'); ?>js/sweetalert/dist/sweetalert2.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#tanggalawal').datetimepicker({
@@ -118,6 +120,126 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).on('click', '.del_pengeluaran', function(event) {
+        event.preventDefault();
+        let kode = $(this).attr('data-kode');
+        let delete_url = "<?= base_url(); ?>/Transaksi/deletepengeluaran/" + kode;
+
+
+        Swal.fire({
+            title: 'Hapus Data',
+            text: "Apakah Anda Yakin Ingin Menghapus Data Ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then(async (result) => {
+            if (result.value) {
+                window.location.href = delete_url;
+            }
+        });
+    });
+    $(document).on('click', '.del_pemasukan', function(event) {
+        event.preventDefault();
+        let kode = $(this).attr('data-kode');
+        let delete_url = "<?= base_url(); ?>/Transaksi/deletepemasukan/" + kode;
+
+
+        Swal.fire({
+            title: 'Hapus Data',
+            text: "Apakah Anda Yakin Ingin Menghapus Data Ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then(async (result) => {
+            if (result.value) {
+                window.location.href = delete_url;
+            }
+        });
+    });
+
+    $(document).on('click', '.del_kategori', function(event) {
+        event.preventDefault();
+        let kode = $(this).attr('data-kode');
+        let delete_url = "<?= base_url(); ?>/Kategori/deletekategori/" + kode;
+
+
+        Swal.fire({
+            title: 'Hapus Data',
+            text: "Apakah Anda Yakin Ingin Menghapus Data Ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then(async (result) => {
+            if (result.value) {
+                window.location.href = delete_url;
+            }
+        });
+    });
+</script>
+
+
+<?php
+if (!empty($this->session->flashdata('message'))) {
+    $pesan = $this->session->flashdata('message');
+    if ($pesan == "Berhasil") {
+        $script = "
+                    <script>
+                            Swal.fire({
+                              icon: 'success',
+                              title: 'Data',
+                              text: 'Berhasil'
+                            }) 
+                    </script>
+                ";
+    } elseif ($pesan == "Berhasil Dihapus") {
+        $script = "
+                    <script>
+                            Swal.fire({
+                              icon: 'success',
+                              title: 'Data',
+                              text: 'Berhasil Dihapus'
+                            }) 
+                    </script>
+                ";
+    } elseif ($pesan == "Berhasil Di Update") {
+        $script = "
+                    <script>
+                            Swal.fire({
+                              icon: 'success',
+                              title: 'Data',
+                              text: 'Berhasil Di Update'
+                            }) 
+                    </script>
+                ";
+    } else {
+        $script =
+            "
+                    <script>
+                                Swal.fire({
+                                  icon: 'error',
+                                  title: 'Data',
+                                  text: 'Gagal'
+                                }) 
+
+                    </script>
+                    ";
+    }
+} else {
+    $script = "";
+}
+echo $script;
+?>
+
 
 <script>
     $(document).ready(function() {
@@ -130,6 +252,21 @@
             $('#tanggaldetail').val(tanggal);
             $('#kategoridetail').val(kategori);
             $('#jumlahdetail').val(jumlah);
+        })
+        $(document).on('click', '#detailPengeluaran', function() {
+            var catatan = $(this).data('catatan');
+            var tanggal = $(this).data('tanggal');
+            var kategori = $(this).data('namakategori');
+            var jumlah = $(this).data('jumlah');
+            $('#catatandetail').val(catatan);
+            $('#tanggaldetail').val(tanggal);
+            $('#kategoridetail').val(kategori);
+            $('#jumlahdetail').val(jumlah);
+        })
+
+        $(document).on('click', '#detailkategori', function() {
+            var kategori = $(this).data('kategori');
+            $('#kategoridetail').val(kategori);
         })
     })
 
@@ -145,11 +282,24 @@
             $('#tanggaledit').val(tanggal);
             $('#kategoriedit').val(kategori);
             $('#jumlahedit').val(jumlah);
-            // modal.find('#idedit').attr("value", div.data('id'));
-            // modal.find('#catatanedit').attr("value", div.data('catatan'));
-            // modal.find('#tanggaledit').attr("value", div.data('tanggal'));
-            // modal.find('#kategoriedit').attr("value", div.data('idkategori'));
-            // modal.find('#jumlahedit').attr("value", div.data('jumlah'));
+        })
+        $(document).on('click', '#editPengeluaran', function() {
+            var idedit = $(this).data('id');
+            var catatan = $(this).data('catatan');
+            var tanggal = $(this).data('tanggal');
+            var kategori = $(this).data('idkategori');
+            var jumlah = $(this).data('jumlah');
+            $('#idedit').val(idedit);
+            $('#catatanedit').val(catatan);
+            $('#tanggaledit').val(tanggal);
+            $('#kategoriedit').val(kategori);
+            $('#jumlahedit').val(jumlah);
+        })
+        $(document).on('click', '#editkategori', function() {
+            var idedit = $(this).data('idedit');
+            var kategori = $(this).data('kategori');
+            $('#idedit').val(idedit);
+            $('#kategoriedit').val(kategori);
         })
     })
 </script>
@@ -205,9 +355,8 @@
     });
 </script>
 
-
 <script type="text/javascript">
-    $('.kategoriedit').select2({
+    $('.kategori').select2({
         ajax: {
             url: "<?= base_url(); ?>/transaksi/getkategori",
             dataType: "json",

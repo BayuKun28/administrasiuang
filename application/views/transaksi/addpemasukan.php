@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-12">
         <div class="card mb-4 p-3 ">
-            <?= $this->session->flashdata('message'); ?></p>
             <form method="post" action="<?= base_url('transaksi/addpemasukan') ?>" class="row g-3">
                 <div class="col-md-6">
                     <label for="Jenis" class="form-label">Jenis Transaksi</label>

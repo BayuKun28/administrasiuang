@@ -5,8 +5,8 @@ class Transaksi extends CI_Controller
 {
     public function pemasukan()
     {
-        $data['title'] = 'Pemasukan';
-        $data['title2'] = 'Pemasukan';
+        $data['title'] = 'Transaksi';
+        $data['title2'] = 'Transaksi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('Pemasukan_model', 'pemasukan');
 
@@ -21,9 +21,21 @@ class Transaksi extends CI_Controller
             $xtanggalakhir = date('Y/m/d');
         }
 
-        $data['pemasukan'] = $this->pemasukan->getPemasukan($xtanggalawal, $xtanggalakhir);
+        $xfilterjenis = $this->input->post('filterjenis');
+
+        if (!empty($xfilterjenis)) {
+            $xfilterjenis = $this->input->post('filterjenis');
+            $xtextfilterjenis = "AND t.jenis = '$xfilterjenis'";
+        } else {
+            $xtextfilterjenis = '';
+        }
+
+        $data['pemasukan'] = $this->pemasukan->getPemasukan($xtanggalawal, $xtanggalakhir, $xtextfilterjenis);
+        $data['kategori'] = $this->pemasukan->getkategori();
+        $data['jenis'] = $this->pemasukan->getjenis();
         $data['tanggalawal'] = $xtanggalawal;
         $data['tanggalakhir'] = $xtanggalakhir;
+        $data['filterjenis'] = $xfilterjenis;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -36,8 +48,24 @@ class Transaksi extends CI_Controller
         $data['title'] = 'Pengeluaran';
         $data['title2'] = 'Pengeluaran';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $this->load->model('Pengeluaran_model', 'pengeluaran');
-        // $data['pengeluaran'] = $this->pengeluaran->getPengeluaran();
+        $this->load->model('Pengeluaran_model', 'pengeluaran');
+
+        $xtanggalawal = $this->input->post('tanggalawal');
+        $xtanggalakhir = $this->input->post('tanggalakhir');
+
+        if (!empty($xtanggalawal) && !empty($xtanggalakhir)) {
+            $xtanggalawal = $this->input->post('tanggalawal');
+            $xtanggalakhir = $this->input->post('tanggalakhir');
+        } else {
+            $xtanggalawal = date('Y/m/d');
+            $xtanggalakhir = date('Y/m/d');
+        }
+
+        $data['Pengeluaran'] = $this->pengeluaran->getPengeluaran($xtanggalawal, $xtanggalakhir);
+        $data['kategori'] = $this->pengeluaran->getkategori();
+        $data['tanggalawal'] = $xtanggalawal;
+        $data['tanggalakhir'] = $xtanggalakhir;
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -47,8 +75,8 @@ class Transaksi extends CI_Controller
 
     public function addpemasukan()
     {
-        $data['title'] = 'Pemasukan';
-        $data['title2'] = 'Tambah Pemasukan';
+        $data['title'] = 'Pemasukan / Pengeluaran';
+        $data['title2'] = 'Tambah Transaksi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $user1 = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->form_validation->set_rules('jenis', 'Jenis Transaksi', 'trim|required');
@@ -73,7 +101,7 @@ class Transaksi extends CI_Controller
                 'kategori' => $this->input->post('kategori', true)
             ];
             $this->db->insert('transaksi', $ins);
-            $this->session->set_flashdata('message', '<div class="alert alert-success role="alert">Berhasil Tambah Data</div>');
+            $this->session->set_flashdata('message', 'Berhasil');
             redirect('transaksi/addpemasukan');
         }
     }
@@ -89,7 +117,22 @@ class Transaksi extends CI_Controller
         );
         $this->load->model('Pemasukan_model', 'pemasukan');
         $this->pemasukan->ubah($data, $id);
+        $this->session->set_flashdata('message', 'Berhasil');
         redirect('Transaksi/pemasukan');
+    }
+    public function deletepemasukan($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('transaksi');
+        $this->session->set_flashdata('message', 'Berhasil Dihapus');
+        redirect('Transaksi/pemasukan');
+    }
+    public function deletepengeluaran($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('transaksi');
+        $this->session->set_flashdata('message', 'Berhasil Dihapus');
+        redirect('Transaksi/pengeluaran');
     }
     public function getjenis()
     {

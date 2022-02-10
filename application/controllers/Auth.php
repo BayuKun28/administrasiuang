@@ -69,9 +69,9 @@ class Auth extends CI_Controller
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
         if ($this->form_validation->run() == false) {
-            $this->load->view('templates/auth_header',$data);
-            $this->load->view('auth/registration',$data);
-            $this->load->view('templates/auth_footer',$data);
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/registration', $data);
+            $this->load->view('templates/auth_footer', $data);
         } else {
             $data = [
                 'name' => htmlspecialchars($this->input->post('name', true)),
@@ -87,13 +87,13 @@ class Auth extends CI_Controller
             redirect('auth');
         }
     }
-    // public function logout()
-    // {
-    //     $this->session->unset_userdata('email');
-    //     $this->session->unset_userdata('role_id');
-    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You Have been LogOut.!</div>');
-    //     redirect('auth');
-    // }
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You Have been LogOut.!</div>');
+        redirect('auth');
+    }
 
     // public function blocked()
     // {
